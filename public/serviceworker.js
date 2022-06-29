@@ -1,4 +1,4 @@
-const CACHE_NAME = 'version-1';
+const CACHE_NAME = "version-1";
 const urlsToCache = ['index.html', 'offline.html'];
 
 const self = this;
@@ -21,9 +21,9 @@ self.addEventListener('install', (event) => {
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request)
+            //if it can't fetch the data, it means we do not have net connection
+            //so it have to return offline.html
             .then(() => {
-                //if it can't fetch the data, it means we do not have net connection
-                //so it have to return offline.html
                 return fetch(event.request)
                     .catch(() => caches.match('offline.html'))
             })
@@ -32,6 +32,7 @@ self.addEventListener('fetch', (event) => {
 });
 
 //Activate the Service Worker
+//delete all the previous versions and always keep the newest one
 self.addEventListener('activate', (event) => {
     const cacheWhitelist = [];
 
