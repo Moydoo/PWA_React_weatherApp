@@ -16,11 +16,11 @@
   <div id="root"></div>
 </body>
 <script>
-  if('serviceWorker' in navigator) {
+  if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./serviceworker.js')
-      .then((reg) => console.log('Sucess: ', reg.scope))
-      .catch((err) => console.log('Failure: ', reg.err));
+        .then((reg) => console.log('Success: ', reg.scope))
+        .catch((err) => console.log('Failure: ', err));
     })
   }
 </script>

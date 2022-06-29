@@ -3,8 +3,7 @@ const urlsToCache = ['index.html', 'offline.html'];
 
 const self = this;
 
-//Install Service Worker
-//Open the cache and save them
+// Install SW
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
@@ -16,8 +15,7 @@ self.addEventListener('install', (event) => {
     )
 });
 
-//Listen for requests
-//We match all the request our site is saving and then fetch them again
+// Listen for requests
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request)
@@ -26,14 +24,11 @@ self.addEventListener('fetch', (event) => {
                     .catch(() => caches.match('offline.html'))
             })
     )
-
 });
 
-//Activate the Service Worker
-//delete all the previous versions and always keep the newest one
+// Activate the SW
 self.addEventListener('activate', (event) => {
     const cacheWhitelist = [];
-
     cacheWhitelist.push(CACHE_NAME);
 
     event.waitUntil(
@@ -44,5 +39,6 @@ self.addEventListener('activate', (event) => {
                 }
             })
         ))
+
     )
 });
