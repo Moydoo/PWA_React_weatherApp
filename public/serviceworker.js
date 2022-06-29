@@ -21,8 +21,6 @@ self.addEventListener('install', (event) => {
 self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request)
-            //if it can't fetch the data, it means we do not have net connection
-            //so it have to return offline.html
             .then(() => {
                 return fetch(event.request)
                     .catch(() => caches.match('offline.html'))
